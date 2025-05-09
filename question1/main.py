@@ -1,10 +1,19 @@
 from fastapi import FastAPI, HTTPException, Query
+from fastapi.middleware.cors import CORSMiddleware
 from typing import List, Dict, Any
 import requests
 import time
 import threading
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
 
 API_BASE = "http://20.244.56.144/evaluation-service"
 EMAIL = ""
@@ -108,6 +117,12 @@ def get_stock_average(ticker: str, minutes: int = Query(...), aggregation: str =
         prices = data
     avg = average(prices)
     return {"averageStockPrice": avg, "priceHistory": prices}
+
+@app.get("/stocks")
+def get_stocks():
+    url = f"{API_BASE}/stocks"
+    data = fetch_api(url)
+    return data
 
 @app.get("/stockcorrelation")
 def get_stock_correlation(minutes: int = Query(...), ticker: List[str] = Query(...)):
