@@ -16,12 +16,12 @@ app.add_middleware(
 )
 
 API_BASE = "http://20.244.56.144/evaluation-service"
-EMAIL = ""
-NAME = ""
-ROLLNO = ""
-ACCESS_CODE = ""
-CLIENT_ID = ""
-CLIENT_SECRET = ""
+EMAIL = "aman.2226cseml1120@kiet.edu"
+NAME = "Aman Chauhan"
+ROLLNO = "2200291530008"
+ACCESS_CODE = "SxVeja"
+CLIENT_ID = "58b24471-66f0-44b9-937b-8c67ebe19dff"
+CLIENT_SECRET = "WvHmRePQEWRAaESB"
 TOKEN = ""
 TOKEN_EXPIRY = 0
 TOKEN_LOCK = threading.Lock()
