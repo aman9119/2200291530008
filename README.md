@@ -1,5 +1,5 @@
 Submission Details 
-220029153
+2200291530008
 
 - Backend: FastAPI (Python), endpoints for stock list, average, and correlation. Caching and CORS enabled. Credentials required in `main.py`.
 - Frontend: React + TypeScript + Material UI. Stock chart and correlation heatmap pages. All API calls go through backend only.
