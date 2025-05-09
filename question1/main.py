@@ -22,12 +22,24 @@ ROLLNO = "2200291530008"
 ACCESS_CODE = "SxVeja"
 CLIENT_ID = "58b24471-66f0-44b9-937b-8c67ebe19dff"
 CLIENT_SECRET = "WvHmRePQEWRAaESB"
+COLLEGE_NAME = "KIET Group of Institutions"
+GITHUB_USERNAME = "https://github.com/aman9119"
+MOBILE_NO = "7668585941"
 TOKEN = ""
 TOKEN_EXPIRY = 0
 TOKEN_LOCK = threading.Lock()
 
 CACHE = {}
 CACHE_TTL = 60
+
+def cache_get(key):
+    v = CACHE.get(key)
+    if v and v[1] > time.time():
+        return v[0]
+    return None
+
+def cache_set(key, value):
+    CACHE[key] = (value, time.time() + CACHE_TTL)
 
 def get_token():
     global TOKEN, TOKEN_EXPIRY
@@ -40,7 +52,10 @@ def get_token():
             "rollNo": ROLLNO,
             "accessCode": ACCESS_CODE,
             "clientID": CLIENT_ID,
-            "clientSecret": CLIENT_SECRET
+            "clientSecret": CLIENT_SECRET,
+            "collegeName": COLLEGE_NAME,
+            "githubUsername": GITHUB_USERNAME,
+            "mobileNo": MOBILE_NO
         }
         r = requests.post(f"{API_BASE}/auth", json=payload)
         if r.status_code == 200:
@@ -57,15 +72,6 @@ def fetch_api(url):
     if r.status_code == 200:
         return r.json()
     raise HTTPException(status_code=r.status_code, detail=r.text)
-
-def cache_get(key):
-    v = CACHE.get(key)
-    if v and v[1] > time.time():
-        return v[0]
-    return None
-
-def cache_set(key, value):
-    CACHE[key] = (value, time.time() + CACHE_TTL)
 
 def get_price_history(ticker: str, minutes: int):
     key = f"{ticker}:{minutes}"
